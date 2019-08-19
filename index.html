@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .toggle{
+             display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <ul style="list-style:none;">
+        <template v-for="item in items">
+            <li :style="[item.style,item.fontStyle]" :class="[item.toggle,item.dropdown]">
+                <img :src="item.imgUrl" :id="`thumbnail_${item.id}`">
+                {{item.name}}
+            </li>
+        </template>
+    </ul>
+    <button type="button" @click="test">메소드 호출</button>
+    <child my-message="안녕하세요"
+            title="제목입니다."
+            description="설명입니다."
+            image="https://picsum.photos/210/118//?image=1"
+    ></child>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+    //새로운 vue component 생성( template)
+    Vue.component('child',{
+        props:['myMessage','title','description','image'],
+        template:` <div><span>{{ myMessage }}</span>
+            <img :src="image">
+            <p>{{ title }}</p><br>
+            <p>{{ description }}</p><br></div>`
+    });
+
+
+
+    //새로운 Vue 컴포넌트 생성
+    new Vue({
+        el:"#app",
+        data() {
+            return{
+                items : [
+                    {
+                        id:1,
+                        imgUrl:"https://picsum.photos/210/118//?image=1",
+                        name: "aaa",
+                        style : {
+                            background:'red',
+                        },
+                        fontStyle :{
+                            'font-size':'10',
+                            fontFamily:'dotum'
+                        },
+                        toggle: {
+                             toggle : true
+                        },
+                        dropdown : 'dropdown'
+                    },
+                    {
+                        id:2,
+                        imgUrl:"https://picsum.photos/210/118//?image=100",
+                        name: "bbb",
+                        style : {
+                            background:'red'
+                        }
+                    },
+                    {
+                        id:3,
+                        imgUrl:"https://picsum.photos/210/118//?image=160",
+                        name: "ccc",
+                        style : {
+                            background:'red'
+                        }
+                    },
+                    {
+                        id:4,
+                        imgUrl:"https://picsum.photos/210/118//?image=180",
+                        name: "ddd",
+                        style : {
+                            background:'red'
+                        }
+                    },{
+                        id:5,
+                        imgUrl:"https://picsum.photos/210/118//?image=200",
+                        name: "eee",
+                        style : {
+                            background:'red'
+                        }
+                    }
+
+                ]
+
+            }
+        },
+        methods:{
+            test() {
+                // console.log(this.items[0].toggle.on)
+                this.items[0].toggle.toggle = !this.items[0].toggle.toggle
+            }
+        }
+    })
+
+</script>
+</body>
+</html>
